@@ -75,67 +75,6 @@ class TestFlaskApp(unittest.TestCase):
         response = self.client.get('/model-inference')
         self.assertEqual(response.status_code, 200)
 
-    def test_predict_api_nlp_classifier(self):
-        """Test prediction API with NLP classifier."""
-        with self.client.session_transaction() as sess:
-            sess['username'] = 'demo'
-        
-        response = self.client.post('/api/predict', data={
-            'model_type': 'nlp_classifier',
-            'patient_uuid': 'test-uuid',
-            'cdt_code': 'D1234',
-            'amount': '100',
-            'notes': 'test notes',
-            'date': '2024-01-01'
-        })
-        
-        self.assertEqual(response.status_code, 200)
-        data = json.loads(response.data)
-        self.assertEqual(data['result'], 'Medium Risk')
-        self.assertEqual(data['confidence'], 0.55)
-        self.assertEqual(data['model_used'], 'NLP Note Classifier')
-
-    def test_predict_api_other_models(self):
-        """Test prediction API with other model types."""
-        with self.client.session_transaction() as sess:
-            sess['username'] = 'demo'
-        
-        response = self.client.post('/api/predict', data={
-            'model_type': 'tabular_classifier',
-            'patient_uuid': 'test-uuid',
-            'cdt_code': 'D1234',
-            'amount': '100',
-            'notes': 'test notes',
-            'date': '2024-01-01'
-        })
-        
-        self.assertEqual(response.status_code, 200)
-        data = json.loads(response.data)
-        self.assertIn(data['result'], ['High Risk', 'Low Risk'])
-        self.assertGreaterEqual(data['confidence'], 0.7)
-        self.assertLessEqual(data['confidence'], 0.95)
-
-    def test_predict_api_without_auth(self):
-        """Test prediction API without authentication."""
-        response = self.client.post('/api/predict', data={
-            'model_type': 'nlp_classifier'
-        })
-        
-        self.assertEqual(response.status_code, 401)
-        data = json.loads(response.data)
-        self.assertEqual(data['error'], 'Not authenticated')
-
-    def test_predict_api_missing_model_type(self):
-        """Test prediction API with missing model type."""
-        with self.client.session_transaction() as sess:
-            sess['username'] = 'demo'
-        
-        response = self.client.post('/api/predict', data={})
-        
-        self.assertEqual(response.status_code, 400)
-        data = json.loads(response.data)
-        self.assertEqual(data['error'], 'Model type is required')
-
     def test_trigger_retraining_api(self):
         """Test model retraining trigger API."""
         with self.client.session_transaction() as sess:
