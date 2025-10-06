@@ -47,7 +47,7 @@ This repository contains a comprehensive trading card analytics demo prepared AL
 - Exploratory data analysis tools
 
 ## Live Demo
-🌐 **Access the live demo at: [alt.demo.joewebbphd.com](https://alt.demo.joewebbphd.com)**
+**Access the live demo at: [alt.demo.joewebbphd.com](https://alt.demo.joewebbphd.com)**
 
 **Demo Credentials:**
 - Username: `demo`
@@ -75,8 +75,8 @@ This is a Python Flask web application built with the following architecture:
 
 <br />
 
-<!-- codebase-structure -->
-## ✨ Codebase Structure
+<!-- Codebase-structure -->
+## Codebase Structure
 
 The project follows a clean Flask application structure:
 
