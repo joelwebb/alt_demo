@@ -1,0 +1,68 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Exploratory Data Analysis{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Exploratory Data Analysis</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Analysis Report</h5>
+                        <button class="btn btn-primary float-right" onclick="downloadHTMLReport()">
+                            <i class="feather icon-download"></i> Download HTML Report
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Dataset Statistics</h6>
+                                <table class="table">
+                                    <tr><td>Number of variables</td><td>10</td></tr>
+                                    <tr><td>Number of observations</td><td>100000</td></tr>
+                                    <tr><td>Missing cells</td><td>44799</td></tr>
+                                    <tr><td>Missing cells (%)</td><td>4.5%</td></tr>
+                                    <tr><td>Duplicate rows</td><td>0</td></tr>
+                                    <tr><td>Duplicate rows (%)</td><td>0.0%</td></tr>
+                                    <tr><td>Total size in memory</td><td>7.6 MiB</td></tr>
+                                    <tr><td>Average record size in memory</td><td>49.0 B</td></tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Fraud Analysis Chart</h6>
+                                <img src="{{ url_for('static', filename='features.png.png') }}" 
+                                     alt="Fraud Analysis Chart" 
+                                     class="img-fluid" 
+                                     style="max-height: 300px; width: 100%; object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function downloadHTMLReport() {
+    const link = document.createElement('a');
+    link.href = '/static/data/eda_report.html';
+    link.download = 'eda_report.html';
+    link.click();
+}
+</script>
+{% endblock %}

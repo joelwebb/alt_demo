@@ -1,0 +1,82 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Example Data Drift Report{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Data Drift Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Drift Analysis</h5>
+                        <button class="btn btn-primary float-right" onclick="downloadDriftReport()">
+                            <i class="feather icon-download"></i> Download HTML Report
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6>Feature Drift Score</h6>
+                                        <h3 class="text-warning">0.23</h3>
+                                        <small>Moderate drift detected</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6>Target Drift Score</h6>
+                                        <h3 class="text-success">0.05</h3>
+                                        <small>Low drift</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h6>Overall Status</h6>
+                                        <h3 class="text-info">Stable</h3>
+                                        <small>Model performance maintained</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6>Drift Visualization</h6>
+                            <div style="height: 300px; background: #f8f9fa; border: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center;">
+                                <img src="{{ url_for('static', filename='images/drift.png') }}" alt="Data Drift Chart" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function downloadDriftReport() {
+    const link = document.createElement('a');
+    link.href = '/static/data/data_drift.html';
+    link.download = 'data_drift_report.html';
+    link.click();
+}
+</script>
+{% endblock %}

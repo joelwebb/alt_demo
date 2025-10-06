@@ -1,0 +1,30 @@
+<ul class="nav pcoded-inner-navbar">
+    <li class="nav-item pcoded-menu-caption" style="text-transform: capitalize;">
+        <label>Arch Demo App</label>
+    </li>
+
+    <li class="nav-item">
+        <a href="{{ url_for('exploratory_analysis') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span><span
+                class="pcoded-mtext">Exploratory Analysis</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('data_drift') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-trending-up"></i></span><span
+                class="pcoded-mtext">Data Drift Report</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('model_training') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-cpu"></i></span><span
+                class="pcoded-mtext">Model Training</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('model_inference') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-zap"></i></span><span
+                class="pcoded-mtext">Model Inference</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('feature_importance') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-target"></i></span><span
+                class="pcoded-mtext">Feature Importance</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('logout') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-log-out"></i></span><span
+                class="pcoded-mtext">Logout</span></a>
+    </li>
+</ul>

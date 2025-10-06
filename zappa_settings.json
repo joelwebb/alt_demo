@@ -1,0 +1,30 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "exclude": [
+            "boto3",
+            "dateutil",
+            "botocore",
+            "s3transfer",
+            "concurrent"
+        ],
+        "project_name": "joes-demo-app",
+        "runtime": "python3.9",
+        "s3_bucket": "joes-demo-app",
+        "domain": "demo.joewebbphd.com",
+        "slim_handler": true,
+        "certificate_arn": "arn:aws:acm:us-east-1:422715500939:certificate/b5f0e581-143b-43b8-8482-e854fb8b8361",
+        "environment_variables": {
+            "ENV": "prod"
+        },
+        "tags": {
+            "creator": "joe.webb",
+            "environment": "development",
+            "lifecycle": "active",
+            "project": "development",
+            "team": "joe.webb"
+        }
+    }
+}

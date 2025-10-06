@@ -1,0 +1,237 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Feature Importance{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Feature Importance</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Feature Importance Analysis</h5>
+                      
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>Feature Importance Table</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Feature</th>
+                                                    <th>Mean Importance</th>
+                                                    <th>Rank</th>
+                                                    <th>Impact</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>avg_price_per_card</td>
+                                                    <td>0.49</td>
+                                                    <td>1</td>
+                                                    <td><span class="badge badge-danger">High</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>log_price</td>
+                                                    <td>0.34</td>
+                                                    <td>2</td>
+                                                    <td><span class="badge badge-danger">High</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>std_price_per_card</td>
+                                                    <td>0.08</td>
+                                                    <td>3</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>grade</td>
+                                                    <td>0.02</td>
+                                                    <td>4</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>days_since_release</td>
+                                                    <td>0.01</td>
+                                                    <td>5</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>card_number_numeric</td>
+                                                    <td>0.01</td>
+                                                    <td>6</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>is_gold</td>
+                                                    <td>0.01</td>
+                                                    <td>7</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Unnamed: 0</td>
+                                                    <td>0.01</td>
+                                                    <td>8</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>day_sold</td>
+                                                    <td>0.01</td>
+                                                    <td>9</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>sale_count_per_card</td>
+                                                    <td>0.00</td>
+                                                    <td>10</td>
+                                                    <td><span class="badge badge-info">Low</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Draw simple bar chart
+function drawBarChart() {
+    const canvas = document.getElementById('barChart');
+    const ctx = canvas.getContext('2d');
+    
+    const features = ['Amount', 'CDT Code', 'Patient History', 'Date', 'Notes Length'];
+    const scores = [0.342, 0.267, 0.198, 0.123, 0.070];
+    
+    const barWidth = 60;
+    const maxHeight = 200;
+    const spacing = 20;
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < features.length; i++) {
+        const x = i * (barWidth + spacing) + spacing;
+        const height = scores[i] * maxHeight;
+        const y = canvas.height - height - 30;
+        
+        // Draw bar
+        ctx.fillStyle = '#007bff';
+        ctx.fillRect(x, y, barWidth, height);
+        
+        // Draw label
+        ctx.fillStyle = '#333';
+        ctx.font = '12px Arial';
+        ctx.save();
+        ctx.translate(x + barWidth/2, canvas.height - 5);
+        ctx.rotate(-Math.PI/4);
+        ctx.textAlign = 'right';
+        ctx.fillText(features[i], 0, 0);
+        ctx.restore();
+        
+        // Draw value
+        ctx.fillStyle = '#333';
+        ctx.font = '10px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(scores[i].toFixed(3), x + barWidth/2, y - 5);
+    }
+}
+
+// Draw simple heatmap
+function drawHeatmap() {
+    const canvas = document.getElementById('heatmap');
+    const ctx = canvas.getContext('2d');
+    
+    const size = 40;
+    const features = ['Amount', 'CDT', 'History', 'Date', 'Notes'];
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
+            const correlation = Math.random() * 2 - 1; // Random correlation between -1 and 1
+            const color = correlation > 0 ? 
+                `rgba(255, 0, 0, ${Math.abs(correlation)})` : 
+                `rgba(0, 0, 255, ${Math.abs(correlation)})`;
+            
+            ctx.fillStyle = color;
+            ctx.fillRect(j * size + 50, i * size + 50, size, size);
+            
+            // Draw grid lines
+            ctx.strokeStyle = '#ccc';
+            ctx.strokeRect(j * size + 50, i * size + 50, size, size);
+            
+            // Draw correlation value
+            ctx.fillStyle = '#333';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(correlation.toFixed(2), j * size + 50 + size/2, i * size + 50 + size/2 + 3);
+        }
+    }
+    
+    // Draw labels
+    ctx.fillStyle = '#333';
+    ctx.font = '12px Arial';
+    for (let i = 0; i < features.length; i++) {
+        // Y-axis labels
+        ctx.textAlign = 'right';
+        ctx.fillText(features[i], 45, i * size + 50 + size/2 + 3);
+        
+        // X-axis labels
+        ctx.save();
+        ctx.translate(i * size + 50 + size/2, 45);
+        ctx.rotate(-Math.PI/4);
+        ctx.textAlign = 'right';
+        ctx.fillText(features[i], 0, 0);
+        ctx.restore();
+    }
+}
+
+// Initialize charts when page loads
+window.addEventListener('load', function() {
+    drawBarChart();
+    drawHeatmap();
+});
+
+function downloadImages() {
+    // Download bar chart
+    const barCanvas = document.getElementById('barChart');
+    const barLink = document.createElement('a');
+    barLink.download = 'feature_importance_bar_chart.png';
+    barLink.href = barCanvas.toDataURL();
+    barLink.click();
+    
+    // Download heatmap
+    setTimeout(() => {
+        const heatmapCanvas = document.getElementById('heatmap');
+        const heatmapLink = document.createElement('a');
+        heatmapLink.download = 'feature_correlation_heatmap.png';
+        heatmapLink.href = heatmapCanvas.toDataURL();
+        heatmapLink.click();
+    }, 500);
+}
+</script>
+{% endblock %}
